@@ -24,5 +24,43 @@ simulateDistribution <- function(state_space, transition, initial_prob, N_fin, s
   }
   dist_mat <- t(t(dist_mat) / colSums(dist_mat))
   return(dist_mat)
+}
 
+simulateRW <- function(start=0, N_fin, p=0.5) {
+  states <- rep(NA, N_fin)
+  states[1] <- start
+  for (i in 2:N_fin) {
+    d <- sample(c(-1, 1), 1, prob=c(1 - p, p))
+    states[i] <- states[i - 1] + d
+  }
+  return(states)
+}
+
+simulateRW_2d <- function(x_start=0, y_start=0, N_fin) {
+  directions <- list(c(1, 0), c(1, 1), c(0, 1), c(-1, 1),
+                     c(-1, 0), c(-1, -1), c(0, -1), c(1, -1))
+  x <- rep(NA, N_fin)
+  y <- rep(NA, N_fin)
+  x[1] <- x_start
+  y[1] <- y_start
+  
+  for (i in 2:N_fin) {
+    d <- sample(directions, 1)
+    x[i] <- x[i - 1] + d[[1]][1]
+    y[i] <- y[i - 1] + d[[1]][2]
+  }
+  return(list(x, y))
+}
+
+simulateURW <- function(x_start=0, y_start=0, N_fin, a=0.5) {
+  x <- rep(NA, N_fin)
+  y <- rep(NA, N_fin)
+  x[1] <- x_start
+  y[1] <- y_start
+  
+  for (i in 2:N_fin) {
+    x[i] <- x[i - 1] + runif(1, -a, a)
+    y[i] <- y[i - 1] + runif(1, -a, a)
+  }
+  return(list(x, y))
 }
