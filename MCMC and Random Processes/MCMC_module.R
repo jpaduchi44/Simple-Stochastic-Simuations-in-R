@@ -24,4 +24,5 @@ simulateDistribution <- function(state_space, transition, initial_prob, N_fin, s
   }
   dist_mat <- t(t(dist_mat) / colSums(dist_mat))
   return(dist_mat)
+
 }
