@@ -1,4 +1,6 @@
 # Standard Monte-Carlo method
+# Also used for importance sampling by appropriately
+# changing the est parameter
 mc_int.standard <- function(num_sample, est, gen_x) {
   x <- gen_x(num_sample)
   approx <- mean(est(x))
